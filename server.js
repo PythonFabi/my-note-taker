@@ -72,22 +72,24 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-app.get('/notes/:id', (req, res) => {
-    const noteId = rew.params.id; 
-    fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
-        if(err) {
-            console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
+app.get('/api/notes/:id', (req, res) => {
+   console.info(`${req.method} request received to get complete note`);
+   fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err,data) => {
+    if (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+    } else {
+        const parsedData = JSON.parse(data);
+        const noteId = req.params.id;
+        const note = parsedData.find((note) => note.noteId === noteId);
+
+        if (note) {
+            res.json(note);
         } else {
-            const parsedData = JSON.parse(data);
-            const note = parsedData.find((n) => n.id === noteId);
-            if (note) {
-                res.json(note);
-            } else {
-                res.status(404).json({ error: 'Note not found' });
-            }
+            res.status(404).send('Note not found')
         }
-    });
+    }
+   });
 });
 
 
