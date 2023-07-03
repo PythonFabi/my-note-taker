@@ -6,6 +6,9 @@ const PORT = 3001;
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(express.static('public'));
 
 
@@ -25,6 +28,29 @@ app.get('/api/notes', (req, res) => {
     });
 });
 
+app.post('/api/notes', (req, res) => {
+    fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            const parsedData = JSON.parse(data);
+            const newNote = req.body;
+
+            parsedData.push(newNote);
+
+            fs.writeFile(path.join(__dirname, '/db/db.json'), JSON.stringify(parsedData, null, 4), 'utf8', (err) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).json({error: 'Internal server error' });
+                } else {
+                    res.json({ message: 'Note added successfully' })
+                }
+            });
+        }
+    });
+
+});
 
 
 app.get('*', (req, res) => 
