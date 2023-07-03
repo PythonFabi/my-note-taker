@@ -52,6 +52,24 @@ app.post('/api/notes', (req, res) => {
 
 });
 
+app.get('/notes/:title', (req, res) => {
+    const noteTitle = rew.params.title; 
+    fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
+        if(err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            const parsedData = JSON.parse(data);
+            const note = parsedData.find((n) => n.title === noteTitle);
+            if (note) {
+                res.json(note);
+            } else {
+                res.status(404).json({ error: 'Note not found' });
+            }
+        }
+    });
+});
+
 
 app.get('*', (req, res) => 
   res.sendFile(path.join(__dirname, '/public/index.html'))
