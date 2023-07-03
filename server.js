@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const uniqid = require('uniqid')
 
 const PORT = 3001;
 
@@ -52,15 +53,15 @@ app.post('/api/notes', (req, res) => {
 
 });
 
-app.get('/notes/:title', (req, res) => {
-    const noteTitle = rew.params.title; 
+app.get('/notes/:id', (req, res) => {
+    const noteId = rew.params.id; 
     fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
         if(err) {
             console.error(err);
             res.status(500).json({ error: 'Internal server error' });
         } else {
             const parsedData = JSON.parse(data);
-            const note = parsedData.find((n) => n.title === noteTitle);
+            const note = parsedData.find((n) => n.id === noteId);
             if (note) {
                 res.json(note);
             } else {
