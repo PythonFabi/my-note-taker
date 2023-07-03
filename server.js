@@ -30,27 +30,46 @@ app.get('/api/notes', (req, res) => {
 });
 
 app.post('/api/notes', (req, res) => {
-    fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
-        } else {
+    console.info(`${req.method} request received to add a review`);
+
+    const { title, text } = req.body;
+
+    if (title && text) {
+        const newNote = {
+            title,
+            text,
+            noteId: uniqid()
+        };
+
+        fs.readFile('./db/db.json', 'utf8', (err, data) => {
+            if(err) {
+                return;
+            }
+
             const parsedData = JSON.parse(data);
-            const newNote = req.body;
 
             parsedData.push(newNote);
 
-            fs.writeFile(path.join(__dirname, '/db/db.json'), JSON.stringify(parsedData, null, 4), 'utf8', (err) => {
-                if (err) {
-                    console.error(err);
-                    res.status(500).json({error: 'Internal server error' });
-                } else {
-                    res.json({ message: 'Note added successfully' })
-                }
-            });
-        }
+            fs.writeFile('./db/db.json', JSON.stringify(parsedData, null, 4), (err) =>
+            err
+            ? console.error(err)
+            : console.log(
+                `New Note with the title ${newNote.title} has been added to Notes database.`
+            )
+        );
     });
 
+
+    const response = {
+        status: 'success',
+        body: newNote,
+    }; 
+
+    console.log(response);
+    res.status(201).json(response);
+    } else {
+        res.status(500).json('Error in posting notes');
+    }
 });
 
 app.get('/notes/:id', (req, res) => {

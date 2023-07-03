@@ -6,5 +6,10 @@
     {
         "title": "Hello ",
         "text": "It's me\n"
+    },
+    {
+        "title": "Let me add",
+        "text": "This note",
+        "noteId": "8p4mgikljn7k2qj"
     }
 ]
