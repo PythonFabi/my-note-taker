@@ -85,14 +85,27 @@ const handleNoteDelete = (e) => {
   const note = e.target;
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
 
-  if (activeNote.id === noteId) {
+  if (activeNote.noteIdd === noteId) {
     activeNote = {};
+    renderActiveNote();
   }
 
-  deleteNote(noteId).then(() => {
-    getAndRenderNotes();
-    renderActiveNote();
-  });
+  fetch(`/api/notes/${noteId}`, {
+    method: 'DELETE',
+    headers: {
+      'Conten-Type': 'application/json',
+    },
+  })
+   .then((response) => {
+    if(response.ok) {
+      getAndRenderNotes();
+    } else {
+      console.error('Error:', response.statusText);
+    }
+   })
+   .catch((error) => {
+    console.error('Error:', error);
+   });
 };
 
 // Sets the activeNote and displays it
@@ -100,6 +113,21 @@ const handleNoteView = (e) => {
   e.preventDefault();
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
   renderActiveNote();
+
+  fetch(`/api/notes/${activeNote.noteId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  })
+   .then((response) => response.json())
+   .then((note) => {
+    noteTitle.value = note.title;
+    noteText.value = note.text;
+   })
+   .catch((error) => {
+    console.error('Error:', error);
+   });
 };
 
 // Sets the activeNote to and empty object and allows the user to enter a new note

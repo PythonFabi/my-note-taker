@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const uniqid = require('uniqid')
+const uniqid = require('uniqid');
 
 const PORT = 3001;
 
@@ -90,6 +90,29 @@ app.get('/api/notes/:id', (req, res) => {
         }
     }
    });
+});
+
+app.delete('/api/notes/:id', (req, res) => {
+    console.info(`${req.method} request received to delete a note`);
+    const noteId = req.params.id;
+    fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
+        } else {
+            let parsedData = JSON.parse(data); 
+            const updatedData = parsedData.filter((note) => note.noteId !== noteId);
+
+            fs.writeFile(path.join(__dirname, '/db/db.json'), JSON.stringify(updatedData, null, 4), (err) => {
+                if(err) {
+                    console.error(err);
+                    res.status(500).json({ error: 'Internal server error' });
+                } else {
+                    res.status(204).end();
+                }
+            });
+        }
+    });
 });
 
 
