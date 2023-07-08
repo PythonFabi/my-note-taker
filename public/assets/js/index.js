@@ -84,19 +84,26 @@ const handleNoteDelete = (e) => {
  const noteElement = e.target.parentElement;
  const noteId = JSON.parse(noteElement.dataset.note).noteId;
 
+//  fetch note api and id
  fetch(`/api/notes/${noteId}`, {
+  // use delete method
   method: 'DELETE',
+  // describe content type
   headers: {
     'Content-Type': 'application/json',
   },
  })
    .then((response) => {
+    // if repsonse went through
     if (response.ok) {
+      // remove the specific note
       noteElement.remove();
     } else {
+      // error
       console.error('Error:', response.statusText);
     }
    })
+  //  error
    .catch((error) => {
     console.error('Error:', error)
    })
@@ -104,21 +111,29 @@ const handleNoteDelete = (e) => {
 
 // Sets the activeNote and displays it
 const handleNoteView = (e) => {
+  // prevent default behavior, when note is clicked
   e.preventDefault();
+  // active Note will be parsed with JSON and get the datanote
   activeNote = JSON.parse(e.target.parentElement.getAttribute('data-note'));
+  // render the active notes
   renderActiveNote();
 
+  // fetch activeNote with the id
   fetch(`/api/notes/${activeNote.noteId}`, {
+    // get method
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     }
   })
+  // show response
    .then((response) => response.json())
+  //  show note title and note text once promise is fulfilled
    .then((note) => {
     noteTitle.value = note.title;
     noteText.value = note.text;
    })
+  //  error
    .catch((error) => {
     console.error('Error:', error);
    });
