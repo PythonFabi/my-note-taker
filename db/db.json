@@ -1,28 +1,8 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text",
-        "noteId": "8p4m82gljnv"
-    },
-    {
         "title": "Hello ",
         "text": "It's me\n",
         "noteId": "4m82gljn8heiv"
-    },
-    {
-        "title": "Let me add",
-        "text": "This note",
-        "noteId": "8p4mgikljn7k2qj"
-    },
-    {
-        "title": "Can I still add ",
-        "text": "Notes?\n",
-        "noteId": "8p4m82gljn8heiv"
-    },
-    {
-        "title": "Why does",
-        "text": "it not work?\n",
-        "noteId": "8p4m788ljn8s5u7"
     },
     {
         "title": "This Note",
@@ -33,5 +13,10 @@
         "title": "Another",
         "text": "Note",
         "noteId": "8p4mgroljt3jvhl"
+    },
+    {
+        "title": "Let me add",
+        "text": "This note can be changed",
+        "noteId": "8p4mbggljulgxe1"
     }
 ]

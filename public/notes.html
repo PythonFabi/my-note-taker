@@ -42,5 +42,30 @@
       </div>
     </div>
     <script src="/assets/js/index.js"></script>
+    <script>
+      const deleteNoteButtons = document.querySelectorAll('.delete-note');
+      deleteNoteButtons.forEach((button) => {
+        button.addEventListener('click', handleNoteDelete);
+      });
+
+      function handleNoteDelete(e) {
+        e.stopPropagation();
+
+        const note = e.target.parentElement.parentElement;
+        const noteId = JSON.parse(note.dataset.note).id;
+
+        fetch(`/api/notes/${noteId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then((response) => {
+            if(response.ok) {
+             note.remove
+            }
+          })
+      }
+    </script>
   </body>
 </html>

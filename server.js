@@ -1,8 +1,11 @@
+// server-side code
+// import express, path, fs, unqid packages
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const uniqid = require('uniqid');
 
+// define PORT
 const PORT = 3001;
 
 const app = express();
