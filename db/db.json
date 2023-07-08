@@ -1,22 +1,12 @@
 [
     {
-        "title": "Hello ",
-        "text": "It's me\n",
-        "noteId": "4m82gljn8heiv"
+        "title": "First Note",
+        "text": "This note is an example note",
+        "noteId": "8p4mgs0ljuni9ki"
     },
     {
-        "title": "This Note",
-        "text": "Test",
-        "noteId": "8p4m7bkljnf045k"
-    },
-    {
-        "title": "Another",
-        "text": "Note",
-        "noteId": "8p4mgroljt3jvhl"
-    },
-    {
-        "title": "Let me add",
-        "text": "This note can be changed",
-        "noteId": "8p4mbggljulgxe1"
+        "title": "Heading ",
+        "text": "Text of the Note",
+        "noteId": "8p4mgs0ljuninr6"
     }
 ]
