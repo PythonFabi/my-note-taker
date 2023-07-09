@@ -6,7 +6,7 @@ const fs = require('fs');
 const uniqid = require('uniqid');
 
 // define PORT
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // init app
 const app = express();
