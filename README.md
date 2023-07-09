@@ -6,7 +6,7 @@ The UI is very simple to use.
 I learned here how to use express.js to create a server-side application, that is connected to the client-side code and the front end.
 Feel free to add as many notes as you like!
 
-Link to the deployed application on heroku: [Heroku App](#)
+Link to the deployed application on heroku: [Heroku App](https://stark-lowlands-09654-dbf24e2cd0cc.herokuapp.com/)
 
 
 ## Usage
